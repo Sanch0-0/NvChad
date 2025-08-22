@@ -24,21 +24,21 @@ This repository contains my personal configuration for [NvChad](https://nvchad.c
    # Check version
    nvim --version
    
-2. **NvChad**
+2. **NvChad**  
    Install NvChad in ~/.config/nvim:
    [NvChad installation](https://nvchad.com/docs/quickstart/install/)
 
-3. **Installing My Configuration**
-   - After NvChad is installed, clone my configuration into ~/.config/nvim:
-     ```bash
-     rm -rf ~/.config/nvim
-     git clone git.github.com/Sanch0-0/NvChad.git
-     ```
-   - Open Neovim and run Lazy sync to install all plugins:
-     ```bash
-     :Lazy sync
-     ```
-**NOTES**
+4. **Installing My Configuration**  
+- After NvChad is installed, clone my configuration into ~/.config/nvim:
+  ```bash
+  rm -rf ~/.config/nvim
+  git clone git.github.com/Sanch0-0/NvChad.git
+  ```
+- Open Neovim and run Lazy sync to install all plugins:
+  ```bash
+  :Lazy sync
+  ```
+**NOTES**  
 Remove any leftover .git folder from ~/.config/nvim to prevent nested repositories:
 ```bash
 rm -rf ~/.config/nvim/.git
