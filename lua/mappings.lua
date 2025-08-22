@@ -65,4 +65,9 @@ map({ "n", "v" }, "x", '"_x', { desc = "Delete char without yanking" })
 
 -- Выбор venv окружения
 map("n", "<leader>V", ":VenvSelect<CR>", { desc = "Select virtual env" })
+
+-- Переходы по табам
 map("n", "<C-t>", ":tabnew<CR>", { desc = "Open new tab" })
+map("n", "<A-t>", ":tabclose<CR>", { desc = "Close current tab" })
+map("n", "<C-Right>", ":tabnext<CR>", { desc = "Next tab" })
+map("n", "<C-Left>", ":tabprevious<CR>", { desc = "Previous tab" })
