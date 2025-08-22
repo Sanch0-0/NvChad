@@ -65,3 +65,4 @@ map({ "n", "v" }, "x", '"_x', { desc = "Delete char without yanking" })
 
 -- Выбор venv окружения
 map("n", "<leader>V", ":VenvSelect<CR>", { desc = "Select virtual env" })
+map("n", "<C-t>", ":tabnew<CR>", { desc = "Open new tab" })
