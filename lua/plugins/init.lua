@@ -100,4 +100,24 @@ return {
       }
     end,
   },
+
+  -- Funcion signature helper
+  {
+    "ray-x/lsp_signature.nvim",
+    event = "BufRead",
+    config = function()
+      require("lsp_signature").setup {
+        bind = true,
+        hint_enable = false,
+        floating_window = true,
+        floating_window_above_cur_line = true,
+        handler_opts = { border = "rounded" },
+        max_height = 4,
+        max_width = 80,
+        zindex = 50,
+        transparency = 10,
+        doc_lines = 0,
+      }
+    end,
+  },
 }
