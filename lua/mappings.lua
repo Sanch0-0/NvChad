@@ -53,8 +53,6 @@ map("v", "<A-k>", ":m '<-2<CR>gv=gv", { desc = "Move block up" })
 map("n", "<A-j>", ":m .+1<CR>==", { desc = "Move line down" })
 map("n", "<A-k>", ":m .-2<CR>==", { desc = "Move line up" })
 
--- Переименовать переменную/функцию во всём проекте через LSP.
-map("n", "<leader>rn", ":lua vim.lsp.buf.rename()<CR>")
 -- Найти все места, где используется данный символ
 map("n", "<leader>gr", ":lua vim.lsp.buf.references()<CR>")
 
@@ -71,3 +69,30 @@ map("n", "<A-t>", ":tabnew<CR>", { desc = "Open new tab" })
 map("n", "<A-T>", ":tabclose<CR>", { desc = "Close current tab" })
 map("n", "<A-Right>", ":tabnext<CR>", { desc = "Next tab" })
 map("n", "<A-Left>", ":tabprevious<CR>", { desc = "Previous tab" })
+
+-- Быстрое сохранение
+map({ "n", "i", "v" }, "<C-s>", "<cmd>w<CR>", { desc = "Save file" })
+
+-- Подсказка по типу под курсором
+map("n", "K", ":lua vim.lsp.buf.hover()<CR>", { desc = "Hover docs" })
+
+-- Быстро очистить поиск (чтобы убрать подсветку после /)
+map("n", "<Esc>", ":noh<CR>", { desc = "Clear search highlight" })
+
+-- Быстрый запуск .py файла
+
+vim.api.nvim_create_user_command("Run", function()
+  local ft = vim.bo.filetype
+  local cmd
+
+  if ft == "python" then
+    cmd = "vsp | terminal python3 " .. vim.fn.expand "%"
+  elseif ft == "sh" then
+    cmd = "vsp | terminal bash " .. vim.fn.expand "%"
+  else
+    print("Unsupported filetype: " .. ft)
+    return
+  end
+
+  vim.cmd(cmd)
+end, {})
