@@ -76,11 +76,24 @@ map({ "n", "i", "v" }, "<C-s>", "<cmd>w<CR>", { desc = "Save file" })
 -- Подсказка по типу под курсором
 map("n", "K", ":lua vim.lsp.buf.hover()<CR>", { desc = "Hover docs" })
 
--- Быстро очистить поиск (чтобы убрать подсветку после /)
-map("n", "<Esc>", ":noh<CR>", { desc = "Clear search highlight" })
+-- Очистка поиска и уведомлений по Esc
+map("n", "<Esc>", "<cmd>noh<CR><cmd>lua require('notify').dismiss()<CR>", { desc = "Clear search and notifications" })
+
+-- Git blame маппинги
+map("n", "<leader>gb", "<cmd>Gitsigns toggle_current_line_blame<CR>", { desc = "Toggle git blame" })
+map("n", "<leader>gB", "<cmd>Gitsigns blame_line<CR>", { desc = "Show blame for line" })
+
+-- Git diff и изменения
+map("n", "<leader>gd", "<cmd>Gitsigns diffthis<CR>", { desc = "Show git diff" })
+map("n", "<leader>gD", "<cmd>Gitsigns toggle_deleted<CR>", { desc = "Toggle deleted lines" })
+
+-- Просмотр всей истории файла
+map("n", "<leader>gH", "<cmd>Gitsigns toggle_deleted<CR>", { desc = "Toggle file history" })
+
+-- Просмотр изменений
+map("n", "<leader>ghp", "<cmd>Gitsigns preview_hunk<CR>", { desc = "Preview hunk" })
 
 -- Быстрый запуск .py файла
-
 vim.api.nvim_create_user_command("Run", function()
   local ft = vim.bo.filetype
   local cmd

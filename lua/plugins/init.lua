@@ -120,4 +120,72 @@ return {
       }
     end,
   },
+
+  -- Fast text jumping
+  {
+    "ggandor/leap.nvim",
+    keys = { "s", "S" },
+    config = function()
+      require("leap").add_default_mappings()
+    end,
+  },
+
+  -- Better messages, popup, etc...
+  {
+    "folke/noice.nvim",
+    event = "VeryLazy",
+    opts = {
+      lsp = {
+        override = {
+          ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
+          ["vim.lsp.util.stylize_markdown"] = true,
+        },
+      },
+      presets = {
+        bottom_search = true,
+        command_palette = true,
+        long_message_to_split = true,
+      },
+    },
+  },
+
+  -- Better notifications
+  {
+    "rcarriga/nvim-notify",
+    config = function()
+      vim.notify = require "notify"
+    end,
+  },
+
+  -- TODO comments
+  {
+    "folke/todo-comments.nvim",
+    event = "BufRead",
+    config = true,
+  },
+
+  -- Git editors names and signs
+  {
+    "lewis6991/gitsigns.nvim",
+    event = "BufRead",
+    config = function()
+      require("gitsigns").setup {
+        signs = {
+          add = { text = "│" },
+          change = { text = "│" },
+          delete = { text = "_" },
+          topdelete = { text = "‾" },
+          changedelete = { text = "~" },
+        },
+        current_line_blame = false,
+        current_line_blame_opts = {
+          virt_text = true,
+          virt_text_pos = "eol",
+          delay = 1000,
+          ignore_whitespace = false,
+        },
+        current_line_blame_formatter = "  <author> • <author_time:%Y-%m-%d> • <summary>",
+      }
+    end,
+  },
 }
