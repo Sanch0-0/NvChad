@@ -157,13 +157,6 @@ return {
     end,
   },
 
-  -- TODO comments
-  {
-    "folke/todo-comments.nvim",
-    event = "BufRead",
-    config = true,
-  },
-
   -- Git editors names and signs
   {
     "lewis6991/gitsigns.nvim",
