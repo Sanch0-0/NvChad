@@ -93,6 +93,10 @@ map("n", "<leader>gH", "<cmd>Gitsigns toggle_deleted<CR>", { desc = "Toggle file
 -- Просмотр изменений
 map("n", "<leader>ghp", "<cmd>Gitsigns preview_hunk<CR>", { desc = "Preview hunk" })
 
+-- Открыть/закрыть quickfix list
+map("n", "<leader>qo", "<cmd>copen<CR>", { desc = "Open quickfix list" })
+map("n", "<leader>qc", "<cmd>cclose<CR>", { desc = "Close quickfix list" })
+
 -- Быстрый запуск .py файла
 vim.api.nvim_create_user_command("Run", function()
   local ft = vim.bo.filetype

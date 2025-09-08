@@ -188,4 +188,14 @@ return {
       }
     end,
   },
+
+  -- Better Quickfix
+  {
+    "kevinhwang91/nvim-bqf",
+    ft = "qf", -- Загружать только для quickfix
+    dependencies = {
+      "nvim-treesitter/nvim-treesitter",
+      "junegunn/fzf", -- Опционально, для лучшей производительности
+    },
+  },
 }
