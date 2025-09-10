@@ -4,7 +4,6 @@ require "nvchad.mappings"
 
 local map = vim.keymap.set
 
-map("n", ";", ":", { desc = "CMD enter command mode" })
 map("i", "jk", "<ESC>")
 
 -- Склеивает текущую строку со следующей
@@ -90,26 +89,6 @@ map("n", "<leader>gD", "<cmd>Gitsigns toggle_deleted<CR>", { desc = "Toggle dele
 -- Просмотр всей истории файла
 map("n", "<leader>gH", "<cmd>Gitsigns toggle_deleted<CR>", { desc = "Toggle file history" })
 
--- Просмотр изменений
-map("n", "<leader>ghp", "<cmd>Gitsigns preview_hunk<CR>", { desc = "Preview hunk" })
-
 -- Открыть/закрыть quickfix list
 map("n", "<leader>qo", "<cmd>copen<CR>", { desc = "Open quickfix list" })
 map("n", "<leader>qc", "<cmd>cclose<CR>", { desc = "Close quickfix list" })
-
--- Быстрый запуск .py файла
-vim.api.nvim_create_user_command("Run", function()
-  local ft = vim.bo.filetype
-  local cmd
-
-  if ft == "python" then
-    cmd = "vsp | terminal python3 " .. vim.fn.expand "%"
-  elseif ft == "sh" then
-    cmd = "vsp | terminal bash " .. vim.fn.expand "%"
-  else
-    print("Unsupported filetype: " .. ft)
-    return
-  end
-
-  vim.cmd(cmd)
-end, {})

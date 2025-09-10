@@ -12,7 +12,6 @@ return {
       opts.ensure_installed = opts.ensure_installed or {}
       vim.list_extend(opts.ensure_installed, {
         "pyright",
-        "jedi-language-server",
         "black",
         "ruff",
         "isort",
@@ -121,13 +120,68 @@ return {
     end,
   },
 
-  -- Fast text jumping
+  -- Fast text jumping (Flash)
   {
-    "ggandor/leap.nvim",
-    keys = { "s", "S" },
+    "folke/flash.nvim",
+    event = "VeryLazy",
     config = function()
-      require("leap").add_default_mappings()
+      vim.api.nvim_set_hl(0, "FlashMatch", { fg = "#f8f8f2", bg = "#717593", bold = false })
+      vim.api.nvim_set_hl(0, "FlashCurrent", { fg = "#50fa7b", bg = "#717593", bold = true })
+      vim.api.nvim_set_hl(0, "FlashLabel", { fg = "#21222c", bg = "#f28ba8", bold = true })
+
+      -- Затем настраиваем flash
+      require("flash").setup {
+        search = {
+          mode = "exact",
+          incremental = false,
+        },
+        highlight = {
+          backdrop = true, -- не затемнять синтаксис
+          groups = {
+            match = "FlashMatch",
+            current = "FlashCurrent",
+            label = "FlashLabel",
+          },
+        },
+        modes = {
+          char = {
+            enabled = true,
+            jump_labels = false,
+          },
+        },
+      }
     end,
+    keys = {
+      {
+        "s",
+        mode = { "n", "x", "o" },
+        function()
+          require("flash").jump {
+            search = {
+              mode = "exact",
+              incremental = false,
+              wrap = true,
+              multi_window = false,
+            },
+          }
+        end,
+        desc = "Flash search",
+      },
+    },
+  },
+
+  -- Telescope integration with Flash
+  {
+    "nvim-telescope/telescope.nvim",
+    keys = {
+      {
+        "S",
+        function()
+          require("telescope.builtin").current_buffer_fuzzy_find()
+        end,
+        desc = "Search in current file",
+      },
+    },
   },
 
   -- Better messages, popup, etc...
@@ -154,31 +208,6 @@ return {
     "rcarriga/nvim-notify",
     config = function()
       vim.notify = require "notify"
-    end,
-  },
-
-  -- Git editors names and signs
-  {
-    "lewis6991/gitsigns.nvim",
-    event = "BufRead",
-    config = function()
-      require("gitsigns").setup {
-        signs = {
-          add = { text = "│" },
-          change = { text = "│" },
-          delete = { text = "_" },
-          topdelete = { text = "‾" },
-          changedelete = { text = "~" },
-        },
-        current_line_blame = false,
-        current_line_blame_opts = {
-          virt_text = true,
-          virt_text_pos = "eol",
-          delay = 1000,
-          ignore_whitespace = false,
-        },
-        current_line_blame_formatter = "  <author> • <author_time:%Y-%m-%d> • <summary>",
-      }
     end,
   },
 

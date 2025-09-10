@@ -1,7 +1,7 @@
 local M = {}
 
 M.base46 = {
-  theme = "catppuccin",
+  theme = "chadracula",
 }
 
 M.nvdash = {
@@ -104,7 +104,7 @@ M.nvdash = {
   -- "⣿⣿⣿⣿⣿⣿⡇⠀⢠⡿⢿⢿⣇⡿⠛⢻⢻⠐⠘⠈⠀⢀⠀⠀⠀⠀⢠⠷⢋⡛⣆⣭⡪⠦⠍⠃⠀⠀⠀⠀⠊⠀⠀⠀⠀⠀⢑⣶⣆⣄",
 }
 
-vim.cmd "hi St_relativepath guifg=#dbe0ee guibg=#2e2e3e"
+vim.cmd "hi St_relativepath guifg=#bbb9b7 guibg=#41434f"
 
 M.ui = {
   statusline = {
@@ -130,28 +130,12 @@ M.ui = {
   },
 }
 
--- Изменяем цвет ASCII текста
 vim.api.nvim_create_autocmd("VimEnter", {
   callback = function()
+    -- Изменяем цвет ASCII текста
     vim.api.nvim_set_hl(0, "NvDashAscii", { fg = "#888BA6" })
     vim.api.nvim_set_hl(0, "NvDashButtons", { fg = "#8be9fd" })
   end,
 })
 
--- Быстрый запуск .py файла
-vim.api.nvim_create_user_command("Run", function()
-  local ft = vim.bo.filetype
-  local cmd
-
-  if ft == "python" then
-    cmd = "vsp | terminal python3 " .. vim.fn.expand "%"
-  elseif ft == "sh" then
-    cmd = "vsp | terminal bash " .. vim.fn.expand "%"
-  else
-    print("Unsupported filetype: " .. ft)
-    return
-  end
-
-  vim.cmd(cmd)
-end, {})
 return M
