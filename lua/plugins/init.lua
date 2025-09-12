@@ -81,14 +81,6 @@ return {
     end,
   },
 
-  -- Live Server Preview (like VScode ServerPreview)
-  {
-    "turbio/bracey.vim",
-    cmd = { "Bracey", "BraceyStop" },
-    build = "npm install --prefix server",
-    ft = { "html", "htmldjango" },
-  },
-
   -- venv quick changing
   {
     "linux-cultist/venv-selector.nvim",
@@ -136,7 +128,7 @@ return {
           incremental = false,
         },
         highlight = {
-          backdrop = true, -- не затемнять синтаксис
+          backdrop = true,
           groups = {
             match = "FlashMatch",
             current = "FlashCurrent",
@@ -161,25 +153,19 @@ return {
               mode = "exact",
               incremental = false,
               wrap = true,
-              multi_window = false,
+              multi_window = true,
             },
           }
         end,
         desc = "Flash search",
       },
-    },
-  },
-
-  -- Telescope integration with Flash
-  {
-    "nvim-telescope/telescope.nvim",
-    keys = {
       {
         "S",
+        mode = { "n", "x", "o" },
         function()
-          require("telescope.builtin").current_buffer_fuzzy_find()
+          require("flash").treesitter()
         end,
-        desc = "Search in current file",
+        desc = "Flash Treesitter",
       },
     },
   },
