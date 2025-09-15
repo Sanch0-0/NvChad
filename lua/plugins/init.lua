@@ -6,6 +6,7 @@ return {
     end,
   },
 
+  -- Autorun required
   {
     "williamboman/mason.nvim",
     opts = function(_, opts)
@@ -16,6 +17,40 @@ return {
         "ruff",
         "isort",
         "debugpy",
+      })
+    end,
+  },
+
+  -- Telescope configs
+  {
+    "nvim-telescope/telescope.nvim",
+    opts = function(_, opts)
+      local actions = require "telescope.actions"
+      opts.defaults = vim.tbl_deep_extend("force", opts.defaults or {}, {
+        mappings = {
+          i = {
+            -- insert mode
+            ["<C-j>"] = actions.move_selection_next,
+            ["<C-k>"] = actions.move_selection_previous,
+            ["<C-h>"] = actions.move_selection_previous, -- или другое действие
+            ["<C-l>"] = actions.move_selection_next, -- или другое действие
+          },
+          n = {
+            -- normal mode внутри telescope
+            ["<C-j>"] = actions.move_selection_next,
+            ["<C-k>"] = actions.move_selection_previous,
+            ["<C-h>"] = actions.move_selection_previous,
+            ["<C-l>"] = actions.move_selection_next,
+          },
+        },
+      })
+
+      vim.api.nvim_create_autocmd("User", {
+        pattern = "TelescopePreviewerLoaded",
+        callback = function()
+          vim.opt_local.number = true
+          vim.opt_local.relativenumber = false
+        end,
       })
     end,
   },
@@ -88,26 +123,6 @@ return {
     config = function()
       require("venv-selector").setup {
         fd_binary_name = "fdfind",
-      }
-    end,
-  },
-
-  -- Funcion signature helper
-  {
-    "ray-x/lsp_signature.nvim",
-    event = "BufRead",
-    config = function()
-      require("lsp_signature").setup {
-        bind = true,
-        hint_enable = false,
-        floating_window = true,
-        floating_window_above_cur_line = true,
-        handler_opts = { border = "rounded" },
-        max_height = 4,
-        max_width = 80,
-        zindex = 50,
-        transparency = 10,
-        doc_lines = 0,
       }
     end,
   },

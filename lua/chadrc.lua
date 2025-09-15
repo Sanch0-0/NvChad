@@ -154,4 +154,17 @@ vim.api.nvim_create_user_command("Run", function()
 
   vim.cmd(cmd)
 end, {})
+
+-- Переключение диагностики
+vim.keymap.set("n", "<leader>df", function()
+  local bufnr = vim.api.nvim_get_current_buf()
+  if vim.diagnostic.is_disabled(bufnr) then
+    vim.diagnostic.enable(bufnr)
+    print "Diagnostics enabled"
+  else
+    vim.diagnostic.disable(bufnr)
+    print "Diagnostics disabled"
+  end
+end, { desc = "Toggle LSP diagnostics" })
+
 return M
