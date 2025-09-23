@@ -5,17 +5,16 @@ return {
       require "configs.lspconfig"
     end,
   },
-
+  --
   -- Autorun required
   {
     "williamboman/mason.nvim",
     opts = function(_, opts)
       opts.ensure_installed = opts.ensure_installed or {}
       vim.list_extend(opts.ensure_installed, {
-        "pyright",
         "black",
+        "pyright",
         "ruff",
-        "isort",
         "debugpy",
       })
     end,
@@ -55,18 +54,23 @@ return {
     end,
   },
 
-  -- Python LSP
+  -- Signatures
   {
-    "williamboman/mason.nvim",
-    opts = function(_, opts)
-      opts.ensure_installed = opts.ensure_installed or {}
-      vim.list_extend(opts.ensure_installed, {
-        "pyright",
-        "black",
-        "ruff",
-        "debugpy",
-      })
-    end,
+    "ray-x/lsp_signature.nvim",
+    event = "VeryLazy",
+    opts = {
+      bind = true,
+      floating_window = true,
+      hint_enable = true,
+      hint_prefix = "🗿",
+      hi_parameter = "LspSignatureActiveParameter",
+      handler_opts = {
+        border = "rounded",
+      },
+      doc_lines = 10,
+      max_height = 10,
+      max_width = 15,
+    },
   },
 
   -- Linting
@@ -152,15 +156,15 @@ return {
         },
         modes = {
           char = {
-            enabled = true,
-            jump_labels = false,
+            enabled = false,
+            jump_labels = true,
           },
         },
       }
     end,
     keys = {
       {
-        "s",
+        "f",
         mode = { "n", "x", "o" },
         function()
           require("flash").jump {
@@ -175,7 +179,7 @@ return {
         desc = "Flash search",
       },
       {
-        "S",
+        "F",
         mode = { "n", "x", "o" },
         function()
           require("flash").treesitter()
@@ -191,9 +195,19 @@ return {
     event = "VeryLazy",
     opts = {
       lsp = {
+        signature = {
+          enabled = false, -- !!! полностью отключаем Noice signature help
+          auto_open = {
+            enabled = false,
+          },
+        },
+        hover = {
+          enabled = true, -- оставляем hover
+        },
         override = {
-          ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
-          ["vim.lsp.util.stylize_markdown"] = true,
+          ["vim.lsp.util.convert_input_to_markdown_lines"] = false,
+          ["vim.lsp.util.stylize_markdown"] = false,
+          ["cmp.entry.get_documentation"] = false,
         },
       },
       presets = {
@@ -212,13 +226,32 @@ return {
     end,
   },
 
-  -- Better Quickfix
+  -- Surround
   {
-    "kevinhwang91/nvim-bqf",
-    ft = "qf", -- Загружать только для quickfix
-    dependencies = {
-      "nvim-treesitter/nvim-treesitter",
-      "junegunn/fzf", -- Опционально, для лучшей производительности
-    },
+    "kylechui/nvim-surround",
+    version = "*",
+    event = "VeryLazy",
+    config = function()
+      require("nvim-surround").setup {
+        keymaps = {
+          normal = "s",
+          normal_cur = "ss",
+          visual = "S",
+          delete = "ds",
+          change = "cs",
+        },
+        --	Окружить слово = ysiw" --> siw"
+        --	Окружить строку = yss" --> ss"
+        --	Окружить выделение = visual + S"
+        --	Удалить окружение	= ds"
+        --	Изменить окружение = cs"'
+        surrounds = {
+          -- Дополнительные окружения
+          ["b"] = { add = { "**", "**" } }, -- Markdown bold
+          ["i"] = { add = { "*", "*" } }, -- Markdown italic
+          ["c"] = { add = { "/* ", " */" } }, -- CSS comment
+        },
+      }
+    end,
   },
 }

@@ -92,3 +92,8 @@ map("n", "<leader>gH", "<cmd>Gitsigns toggle_deleted<CR>", { desc = "Toggle file
 -- Открыть/закрыть quickfix list
 map("n", "<leader>qo", "<cmd>copen<CR>", { desc = "Open quickfix list" })
 map("n", "<leader>qc", "<cmd>cclose<CR>", { desc = "Close quickfix list" })
+
+-- Прикрепить сигнатуру
+map("n", "K", function()
+  require("lsp_signature").toggle_float_win()
+end, { desc = "Toggle signature help" })

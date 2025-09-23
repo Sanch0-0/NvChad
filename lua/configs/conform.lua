@@ -1,10 +1,9 @@
-
 local options = {
   formatters_by_ft = {
     lua = { "stylua" },
     css = { "prettier" },
     html = { "prettier" },
-    python = { "black", "isort" },
+    python = { "black", "ruff", "isort" },
   },
 
   format_on_save = {
@@ -16,7 +15,7 @@ local options = {
 -- Run black before save
 vim.api.nvim_create_autocmd("BufWritePre", {
   callback = function(args)
-    require("conform").format({ bufnr = args.buf })
+    require("conform").format { bufnr = args.buf }
   end,
 })
 

@@ -110,9 +110,30 @@ M.ui = {
   statusline = {
     theme = "default",
     separator_style = "default",
-    order = { "mode", "relativepath", "file", "git", "%=", "lsp_msg", "%=", "diagnostics", "lsp", "cwd", "cursor" },
+    order = {
+      "macro",
+      "mode",
+      "relativepath",
+      "file",
+      "git",
+      "%=",
+      "lsp_msg",
+      "%=",
+      "diagnostics",
+      "lsp",
+      "cwd",
+      "cursor",
+    },
 
     modules = {
+      macro = function()
+        local recording_reg = vim.fn.reg_recording()
+        if recording_reg ~= "" then
+          return "%#StText# ● REC @" .. recording_reg .. " "
+        end
+        return ""
+      end,
+
       relativepath = function()
         local path = vim.api.nvim_buf_get_name(0)
         if path == "" then
