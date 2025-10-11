@@ -254,4 +254,48 @@ return {
       }
     end,
   },
+
+  -- Git merge conflict
+  {
+    "sindrets/diffview.nvim",
+    dependencies = { "nvim-lua/plenary.nvim", "nvim-tree/nvim-web-devicons" },
+    cmd = { "DiffviewOpen", "DiffviewClose", "DiffviewToggleFiles", "DiffviewFileHistory" },
+    config = function()
+      local actions = require "diffview.actions"
+
+      require("diffview").setup {
+        enhanced_diff_hl = true,
+        -- merge_tool scope — эти бинды активны в merge view (правильное место)
+        key_bindings = {
+          merge_tool = {
+            -- hunk-level (один конфликт)
+            { { "n", "x" }, "<leader>co", actions.conflict_choose "ours", { desc = "Choose OURS (local) - hunk" } },
+            {
+              { "n", "x" },
+              "<leader>ct",
+              actions.conflict_choose "theirs",
+              { desc = "Choose THEIRS (remote) - hunk" },
+            },
+            { { "n", "x" }, "<leader>cb", actions.conflict_choose "base", { desc = "Choose BASE - hunk" } },
+            {
+              { "n", "x" },
+              "<leader>ca",
+              actions.conflict_choose "all",
+              { desc = "Choose ALL (keep all) - hunk" },
+            },
+
+            -- file-level (всё файл)
+            { "n", "<leader>cO", actions.conflict_choose_all "ours", { desc = "Choose OURS - whole file" } },
+            { "n", "<leader>cT", actions.conflict_choose_all "theirs", { desc = "Choose THEIRS - whole file" } },
+            { "n", "<leader>cB", actions.conflict_choose_all "base", { desc = "Choose BASE - whole file" } },
+            { "n", "<leader>cA", actions.conflict_choose_all "all", { desc = "Choose ALL - whole file" } },
+
+            -- навигация между конфликтами
+            { "n", "]x", actions.next_conflict, { desc = "Next conflict" } },
+            { "n", "[x", actions.prev_conflict, { desc = "Previous conflict" } },
+          },
+        },
+      }
+    end,
+  },
 }

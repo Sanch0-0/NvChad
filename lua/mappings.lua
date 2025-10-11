@@ -9,8 +9,8 @@ map("i", "jk", "<ESC>")
 -- Склеивает текущую строку со следующей
 map("n", "J", "mzJz")
 -- Скролл на пол-экрана вниз/вверх
-map("n", "<C-d>", "<C-d>zz")
-map("n", "<C-u>", "<C-u>zz")
+map("n", "<C-j>", "<C-d>zz")
+map("n", "<C-k>", "<C-u>zz")
 -- При поиске (n/N) перемещает курсор на следующее совпадение
 map("n", "n", "nzzzv")
 map("n", "N", "Nzzzv")
@@ -82,8 +82,11 @@ map("n", "<Esc>", "<cmd>noh<CR><cmd>lua require('notify').dismiss()<CR>", { desc
 map("n", "<leader>gb", "<cmd>Gitsigns toggle_current_line_blame<CR>", { desc = "Toggle git blame" })
 map("n", "<leader>gB", "<cmd>Gitsigns blame_line<CR>", { desc = "Show blame for line" })
 
--- Git diff и изменения
-map("n", "<leader>gd", "<cmd>Gitsigns diffthis<CR>", { desc = "Show git diff" })
+-- DiffView
+map("n", "<leader>gdo", "<cmd>DiffviewOpen<cr>", { desc = "Open diff view" })
+map("n", "<leader>gdc", "<cmd>DiffviewClose<cr>", { desc = "Close diff view" })
+map("n", "<leader>gdh", "<cmd>DiffviewFileHistory<cr>", { desc = "File history" })
+
 map("n", "<leader>gD", "<cmd>Gitsigns toggle_deleted<CR>", { desc = "Toggle deleted lines" })
 
 -- Просмотр всей истории файла
