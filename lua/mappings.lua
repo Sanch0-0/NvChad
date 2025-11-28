@@ -40,8 +40,8 @@ map("t", "<C-Left>", "<cmd>vertical resize -2<CR>")
 map("t", "<C-Right>", "<cmd>vertical resize +2<CR>")
 
 -- Перемещать вбок через < и >
-map("v", "<", "<gv", { desc = "Indent left and reselect" })
-map("v", ">", ">gv", { desc = "Indent right and reselect" })
+map("v", "<A-h>", "<gv", { desc = "Indent left and reselect" })
+map("v", "<A-l>", ">gv", { desc = "Indent right and reselect" })
 
 -- Перемещать выделенный блок вниз
 map("v", "<A-j>", ":m '>+2<CR>gv=gv", { desc = "Move block down" })
@@ -100,3 +100,5 @@ map("n", "<leader>qc", "<cmd>cclose<CR>", { desc = "Close quickfix list" })
 map("n", "K", function()
   require("lsp_signature").toggle_float_win()
 end, { desc = "Toggle signature help" })
+
+

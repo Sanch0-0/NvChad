@@ -6,15 +6,25 @@ return {
     end,
   },
   --
+
   -- Autorun required
   {
     "williamboman/mason.nvim",
     opts = function(_, opts)
       opts.ensure_installed = opts.ensure_installed or {}
       vim.list_extend(opts.ensure_installed, {
-        "black",
-        "pyright",
+        -- LSP servers
+        "pyright", 
         "ruff",
+        "html",
+        "cssls",
+        
+        -- Formatters
+        "black",
+        "stylua", 
+        "prettier",
+        
+        -- Debuggers
         "debugpy",
       })
     end,
@@ -222,7 +232,10 @@ return {
   {
     "rcarriga/nvim-notify",
     config = function()
-      vim.notify = require "notify"
+      require("notify").setup({
+        background_colour = "#000000",
+      })
+      vim.notify = require("notify")
     end,
   },
 
