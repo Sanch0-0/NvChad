@@ -5,7 +5,7 @@ local options = {
     typescript = { "prettier" },
     css = { "prettier" },
     html = { "prettier" },
-    python = { "black", "ruff", "isort" },
+    python = { "ruff", "black", "isort" },
   },
 
   format_on_save = {
