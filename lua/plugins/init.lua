@@ -14,16 +14,16 @@ return {
       opts.ensure_installed = opts.ensure_installed or {}
       vim.list_extend(opts.ensure_installed, {
         -- LSP servers
-        "pyright", 
+        "pyright",
         "ruff",
         "html",
         "cssls",
-        
+
         -- Formatters
         "black",
-        "stylua", 
+        "stylua",
         "prettier",
-        
+
         -- Debuggers
         "debugpy",
       })
@@ -232,10 +232,10 @@ return {
   {
     "rcarriga/nvim-notify",
     config = function()
-      require("notify").setup({
+      require("notify").setup {
         background_colour = "#000000",
-      })
-      vim.notify = require("notify")
+      }
+      vim.notify = require "notify"
     end,
   },
 
@@ -253,11 +253,27 @@ return {
           delete = "ds",
           change = "cs",
         },
-        --	Окружить слово = ysiw" --> siw"
-        --	Окружить строку = yss" --> ss"
-        --	Окружить выделение = visual + S"
-        --	Удалить окружение	= ds"
-        --	Изменить окружение = cs"'
+        --  siw"     - Окружить слово двойными кавычками
+        --  siw'     - Окружить слово одинарными кавычками
+        --  siw(     - Окружить слово круглыми скобками
+        --  siw[     - Окружить слово квадратными скобками
+        --  siw{     - Окружить слово фигурными скобками
+        --  siwt     - Окружить слово HTML тегом (спросит какой)
+        --  siwb     - Окружить слово **Markdown жирным**
+        --  siwi     - Окружить слово *Markdown курсивом*
+        --
+        --  ss"      - Окружить всю строку двойными кавычками
+        --  ssb      - Окружить всю строку **жирным**
+        --
+        --  Visual mode: выделите текст и нажмите S" (или Sb, Si и т.д.)
+        --
+        --  ds"      - Удалить двойные кавычки вокруг слова
+        --  ds(      - Удалить круглые скобки
+        --  dsb      - Удалить **жирное** Markdown оформление
+        --
+        --  cs"'     - Изменить двойные кавычки на одинарные
+        --  cs(b     - Изменить круглые скобки на **жирный** Markdown
+        --  csw"     - Изменить окружение слова на двойные кавычки
         surrounds = {
           -- Дополнительные окружения
           ["b"] = { add = { "**", "**" } }, -- Markdown bold

@@ -28,29 +28,36 @@ map("t", "<C-k>", "<cmd>wincmd k<CR>")
 map("t", "<C-l>", "<cmd>wincmd l<CR>")
 
 -- Ресайз окна
-map("n", "<C-Up>", ":resize -2<CR>")
-map("n", "<C-Down>", ":resize +2<CR>")
-map("n", "<C-Left>", ":vertical resize -2<CR>")
-map("n", "<C-Right>", ":vertical resize +2<CR>")
+map("n", "<C-k>", ":resize -2<CR>")
+map("n", "<C-j>", ":resize +2<CR>")
+map("n", "<C-h>", ":vertical resize -2<CR>")
+map("n", "<C-l>", ":vertical resize +2<CR>")
 
 -- Ресайз терминала
-map("t", "<C-Up>", "<cmd>resize -2<CR>")
-map("t", "<C-Down>", "<cmd>resize +2<CR>")
-map("t", "<C-Left>", "<cmd>vertical resize -2<CR>")
-map("t", "<C-Right>", "<cmd>vertical resize +2<CR>")
+map("t", "<C-k>", "<cmd>resize -2<CR>")
+map("t", "<C-j>", "<cmd>resize +2<CR>")
+map("t", "<C-h>", "<cmd>vertical resize -2<CR>")
+map("t", "<C-l>", "<cmd>vertical resize +2<CR>")
 
--- Перемещать вбок через < и >
-map("v", "<A-h>", "<gv", { desc = "Indent left and reselect" })
-map("v", "<A-l>", ">gv", { desc = "Indent right and reselect" })
-
--- Перемещать выделенный блок вниз
-map("v", "<A-j>", ":m '>+2<CR>gv=gv", { desc = "Move block down" })
--- Перемещать выделенный блок вверх
-map("v", "<A-k>", ":m '<-2<CR>gv=gv", { desc = "Move block up" })
-
--- Normal mode: двигать строку
+-- Normal mode: двигать строку вверх/вниз
 map("n", "<A-j>", ":m .+1<CR>==", { desc = "Move line down" })
 map("n", "<A-k>", ":m .-2<CR>==", { desc = "Move line up" })
+
+-- Normal mode: двигать строку влево/вправо (переопределяем Alt+h)
+map("n", "<A-h>", "<<", { desc = "Indent left" })
+map("n", "<A-l>", ">>", { desc = "Indent right" })
+
+-- Visual mode: двигать выделенный блок
+map("v", "<A-j>", ":m '>+1<CR>gv=gv", { desc = "Move block down" })
+map("v", "<A-k>", ":m '<-2<CR>gv=gv", { desc = "Move block up" })
+
+-- Visual mode: двигать выделенный блок влево/вправо
+map("v", "<A-h>", "<gv", { desc = "Indent left and keep selection" })
+map("v", "<A-l>", ">gv", { desc = "Indent right and keep selection" })
+
+-- Insert mode: двигать строку из режима вставки
+map("i", "<A-j>", "<Esc>:m .+1<CR>==gi", { desc = "Move line down" })
+map("i", "<A-k>", "<Esc>:m .-2<CR>==gi", { desc = "Move line up" })
 
 -- Найти все места, где используется данный символ
 map("n", "<leader>gr", ":lua vim.lsp.buf.references()<CR>")
@@ -100,5 +107,3 @@ map("n", "<leader>qc", "<cmd>cclose<CR>", { desc = "Close quickfix list" })
 map("n", "K", function()
   require("lsp_signature").toggle_float_win()
 end, { desc = "Toggle signature help" })
-
-
