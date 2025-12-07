@@ -71,18 +71,28 @@ return {
     opts = {
       bind = true,
       floating_window = true,
-      hint_enable = true,
+      floating_window_above_cur_line = true,
+      -- hint
+      hint_enable = false,
       hint_prefix = "🗿",
+      hint_scheme = "String",
       hi_parameter = "LspSignatureActiveParameter",
       handler_opts = {
         border = "rounded",
       },
+      -- doc lines
       doc_lines = 10,
-      max_height = 10,
-      max_width = 15,
+      max_height = 25,
+      max_width = 60,
+      wrap = true,
+      -- big signatures
+      always_trigger = false,
+      toggle_key = "<M-s>", -- Alt+s
+      scroll_bar = false,
+      timer_interval = 200,
+      zindex = 10,
     },
   },
-
   -- Linting
   {
     "mfussenegger/nvim-lint",
