@@ -7,7 +7,7 @@ local map = vim.keymap.set
 map("i", "jk", "<ESC>")
 
 -- Склеивает текущую строку со следующей
-map("n", "J", "mzJz")
+-- map("n", "J", "mzJz")
 -- Скролл на пол-экрана вниз/вверх
 map("n", "<C-j>", "<C-d>zz")
 map("n", "<C-k>", "<C-u>zz")
@@ -28,16 +28,16 @@ map("t", "<C-k>", "<cmd>wincmd k<CR>")
 map("t", "<C-l>", "<cmd>wincmd l<CR>")
 
 -- Ресайз окна
-map("n", "<C-k>", ":resize -2<CR>")
-map("n", "<C-j>", ":resize +2<CR>")
-map("n", "<C-h>", ":vertical resize -2<CR>")
-map("n", "<C-l>", ":vertical resize +2<CR>")
+map("n", "<C-Down>", ":resize +2<CR>")
+map("n", "<C-Up>", ":resize -2<CR>")
+map("n", "<C-Left>", ":vertical resize -2<CR>")
+map("n", "<C-Right>", ":vertical resize +2<CR>")
 
 -- Ресайз терминала
-map("t", "<C-k>", "<cmd>resize -2<CR>")
-map("t", "<C-j>", "<cmd>resize +2<CR>")
-map("t", "<C-h>", "<cmd>vertical resize -2<CR>")
-map("t", "<C-l>", "<cmd>vertical resize +2<CR>")
+map("t", "<C-Down>", "<cmd>resize -2<CR>")
+map("t", "<C-Up>", "<cmd>resize +2<CR>")
+map("t", "<C-Left>", "<cmd>vertical resize -2<CR>")
+map("t", "<C-Right>", "<cmd>vertical resize +2<CR>")
 
 -- Normal mode: двигать строку вверх/вниз
 map("n", "<A-j>", ":m .+1<CR>==", { desc = "Move line down" })
@@ -99,6 +99,21 @@ map("n", "<leader>gD", "<cmd>Gitsigns toggle_deleted<CR>", { desc = "Toggle dele
 -- Просмотр всей истории файла
 map("n", "<leader>gH", "<cmd>Gitsigns toggle_deleted<CR>", { desc = "Toggle file history" })
 
--- Открыть/закрыть quickfix list
-map("n", "<leader>qo", "<cmd>copen<CR>", { desc = "Open quickfix list" })
-map("n", "<leader>qc", "<cmd>cclose<CR>", { desc = "Close quickfix list" })
+-- todo-comments quickfix list
+
+local tc = require "todo-comments"
+
+map("n", "n", function()
+  tc.jump_next()
+end, { desc = "Next TODO/FIX/BUG comment" })
+
+map("n", "N", function()
+  tc.jump_prev()
+end, { desc = "Prev TODO/FIX/BUG comment" })
+
+map("n", "<leader>qa", function()
+  vim.cmd "TodoQuickFix"
+  vim.cmd "copen"
+end, { desc = "Open TODO quickfix" })
+
+map("n", "<leader>qc", "<cmd>cclose<CR>", { desc = "Close quickfix" })

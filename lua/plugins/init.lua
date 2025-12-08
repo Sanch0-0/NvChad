@@ -5,7 +5,6 @@ return {
       require "configs.lspconfig"
     end,
   },
-  --
 
   -- Autorun required
   {
@@ -82,7 +81,7 @@ return {
       },
       -- doc lines
       doc_lines = 10,
-      max_height = 25,
+      max_height = 3,
       max_width = 60,
       wrap = true,
       -- big signatures
@@ -157,8 +156,8 @@ return {
     event = "VeryLazy",
     config = function()
       vim.api.nvim_set_hl(0, "FlashMatch", { fg = "#f8f8f2", bg = "#717593", bold = false })
-      vim.api.nvim_set_hl(0, "FlashCurrent", { fg = "#50fa7b", bg = "#717593", bold = true })
-      vim.api.nvim_set_hl(0, "FlashLabel", { fg = "#21222c", bg = "#f28ba8", bold = true })
+      vim.api.nvim_set_hl(0, "FlashCurrent", { fg = "#ABE9B3", bg = "#717593", bold = true })
+      vim.api.nvim_set_hl(0, "FlashLabel", { fg = "#21222c", bg = "#91B6FB", bold = true })
 
       -- Затем настраиваем flash
       require("flash").setup {
@@ -234,6 +233,34 @@ return {
         bottom_search = true,
         command_palette = true,
         long_message_to_split = true,
+      },
+    },
+  },
+
+  -- TODO
+  {
+    "folke/todo-comments.nvim",
+    dependencies = { "nvim-lua/plenary.nvim" },
+    opts = {
+      keywords = {
+        FIX = {
+          icon = " ",
+          color = "#FFC0B9",
+          alt = { "FIXME", "FIXIT", "ISSUE" },
+        },
+        BUG = {
+          icon = " ",
+          color = "#F38BA8",
+        },
+        NOTE = {
+          icon = " ",
+          color = "#ABE9B3",
+          alt = { "INFO" },
+        },
+        TEST = {
+          icon = " ",
+          color = "#89DCEB",
+        },
       },
     },
   },
