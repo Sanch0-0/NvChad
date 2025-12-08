@@ -100,17 +100,6 @@ map("n", "<leader>gD", "<cmd>Gitsigns toggle_deleted<CR>", { desc = "Toggle dele
 map("n", "<leader>gH", "<cmd>Gitsigns toggle_deleted<CR>", { desc = "Toggle file history" })
 
 -- todo-comments quickfix list
-
-local tc = require "todo-comments"
-
-map("n", "n", function()
-  tc.jump_next()
-end, { desc = "Next TODO/FIX/BUG comment" })
-
-map("n", "N", function()
-  tc.jump_prev()
-end, { desc = "Prev TODO/FIX/BUG comment" })
-
 map("n", "<leader>qa", function()
   vim.cmd "TodoQuickFix"
   vim.cmd "copen"
