@@ -14,12 +14,11 @@ return {
       vim.list_extend(opts.ensure_installed, {
         -- LSP servers
         "pyright",
-        "ruff",
         "html",
         "cssls",
+        "ruff",
 
         -- Formatters
-        "black",
         "stylua",
         "prettier",
 
