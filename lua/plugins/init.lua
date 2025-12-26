@@ -155,9 +155,9 @@ return {
     "folke/flash.nvim",
     event = "VeryLazy",
     config = function()
-      vim.api.nvim_set_hl(0, "FlashMatch", { fg = "#f8f8f2", bg = "#717593", bold = false })
-      vim.api.nvim_set_hl(0, "FlashCurrent", { fg = "#ABE9B3", bg = "#717593", bold = true })
-      vim.api.nvim_set_hl(0, "FlashLabel", { fg = "#21222c", bg = "#91B6FB", bold = true })
+      vim.api.nvim_set_hl(0, "FlashMatch", { fg = "#D9E0EE", bg = "#21222c", bold = false })
+      vim.api.nvim_set_hl(0, "FlashCurrent", { fg = "#C7A0DC", bg = "#21222c", bold = true })
+      vim.api.nvim_set_hl(0, "FlashLabel", { fg = "#161621", bg = "#B4BEFE", bold = true })
 
       -- Затем настраиваем flash
       require("flash").setup {
@@ -214,8 +214,11 @@ return {
     event = "VeryLazy",
     opts = {
       lsp = {
+        progress = {
+          enabled = false,
+        },
         signature = {
-          enabled = false, -- !!! полностью отключаем Noice signature help
+          enabled = false,
           auto_open = {
             enabled = false,
           },
@@ -241,6 +244,7 @@ return {
   {
     "folke/todo-comments.nvim",
     dependencies = { "nvim-lua/plenary.nvim" },
+    event = "BufRead",
     opts = {
       keywords = {
         FIX = {
@@ -271,6 +275,8 @@ return {
     config = function()
       require("notify").setup {
         background_colour = "#000000",
+        render = "compact",
+        stages = "fade_in_slide_out",
       }
       vim.notify = require "notify"
     end,
@@ -319,6 +325,18 @@ return {
         },
       }
     end,
+  },
+
+  -- Default NvChad notifications
+
+  {
+    "j-hui/fidget.nvim",
+    opts = {
+      progress = {
+        ignore_done_already = true,
+        ignore_empty_message = true,
+      },
+    },
   },
 
   -- Git merge conflict
