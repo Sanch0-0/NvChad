@@ -21,6 +21,7 @@ return {
         -- Formatters
         "stylua",
         "prettier",
+        "black",
 
         -- Debuggers
         "debugpy",
@@ -30,36 +31,41 @@ return {
 
   -- Telescope configs
   {
-    "nvim-telescope/telescope.nvim",
-    opts = function(_, opts)
-      local actions = require "telescope.actions"
-      opts.defaults = vim.tbl_deep_extend("force", opts.defaults or {}, {
-        mappings = {
-          i = {
-            -- insert mode
-            ["<C-j>"] = actions.move_selection_next,
-            ["<C-k>"] = actions.move_selection_previous,
-            ["<C-h>"] = actions.move_selection_previous, -- или другое действие
-            ["<C-l>"] = actions.move_selection_next, -- или другое действие
-          },
-          n = {
-            -- normal mode внутри telescope
-            ["<C-j>"] = actions.move_selection_next,
-            ["<C-k>"] = actions.move_selection_previous,
-            ["<C-h>"] = actions.move_selection_previous,
-            ["<C-l>"] = actions.move_selection_next,
-          },
+  "nvim-telescope/telescope.nvim",
+  opts = function(_, opts)
+    local actions = require "telescope.actions"
+    opts.defaults = vim.tbl_deep_extend("force", opts.defaults or {}, {
+      layout_config = {
+        horizontal = {
+          preview_width = 0.5,
         },
-      })
+        preview_cutoff = 1,
+      },
+      mappings = {
+        i = {
+          ["<C-j>"] = actions.move_selection_next,
+          ["<C-k>"] = actions.move_selection_previous,
+          ["<C-h>"] = actions.move_selection_previous,
+          ["<C-l>"] = actions.move_selection_next,
+        },
+        n = {
+          ["<C-j>"] = actions.move_selection_next,
+          ["<C-k>"] = actions.move_selection_previous,
+          ["<C-h>"] = actions.move_selection_previous,
+          ["<C-l>"] = actions.move_selection_next,
+        },
+      },
+    })
 
-      vim.api.nvim_create_autocmd("User", {
-        pattern = "TelescopePreviewerLoaded",
-        callback = function()
-          vim.opt_local.number = true
-          vim.opt_local.relativenumber = false
-        end,
-      })
-    end,
+    -- Автокоманда для нумерации строк в preview – она безопасна
+    vim.api.nvim_create_autocmd("User", {
+      pattern = "TelescopePreviewerLoaded",
+      callback = function()
+        vim.opt_local.number = true
+        vim.opt_local.relativenumber = false
+      end,
+    })
+  end,
   },
 
   -- Signatures
@@ -111,7 +117,10 @@ return {
   -- Formatting
   {
     "stevearc/conform.nvim",
-    opts = require "configs.conform",
+    lazy = false,
+    config = function()
+      require("conform").setup(require("configs.conform"))
+    end,
   },
 
   -- Debugging

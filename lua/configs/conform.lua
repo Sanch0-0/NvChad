@@ -1,3 +1,4 @@
+print "conform.lua loaded!"
 local options = {
   formatters_by_ft = {
     lua = { "stylua" },
@@ -5,7 +6,7 @@ local options = {
     typescript = { "prettier" },
     css = { "prettier" },
     html = { "prettier" },
-    python = { "ruff" },
+    python = { "ruff_format", "ruff" },
   },
 
   format_on_save = {
@@ -13,12 +14,5 @@ local options = {
     lsp_fallback = true,
   },
 }
-
--- Run black before save
-vim.api.nvim_create_autocmd("BufWritePre", {
-  callback = function(args)
-    require("conform").format { bufnr = args.buf }
-  end,
-})
 
 return options

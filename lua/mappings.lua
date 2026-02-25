@@ -1,13 +1,9 @@
 require "nvchad.mappings"
 
--- add yours here
-
 local map = vim.keymap.set
 
 map("i", "jk", "<ESC>")
 
--- Склеивает текущую строку со следующей
--- map("n", "J", "mzJz")
 -- Скролл на пол-экрана вниз/вверх
 map("n", "<C-j>", "<C-d>zz")
 map("n", "<C-k>", "<C-u>zz")
@@ -106,3 +102,8 @@ map("n", "<leader>qa", function()
 end, { desc = "Open TODO quickfix" })
 
 map("n", "<leader>qc", "<cmd>cclose<CR>", { desc = "Close quickfix" })
+
+-- Ренейм через LSP
+map("n", "<leader>rr", function()
+  vim.lsp.buf.rename()
+end, { desc = "LSP Rename" })
