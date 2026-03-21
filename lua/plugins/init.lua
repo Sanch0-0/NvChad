@@ -291,49 +291,49 @@ return {
   },
 
   -- -- Surround
-  -- {
-  --   "kylechui/nvim-surround",
-  --   version = "*",
-  --   event = "VeryLazy",
-  --   config = function()
-  --     local surround = require "nvim-surround"
-  --
-  --     surround.setup {
-  --       surrounds = {
-  --         ["b"] = { add = { "**", "**" } }, -- Markdown bold
-  --         ["i"] = { add = { "*", "*" } }, -- Markdown italic
-  --         ["c"] = { add = { "/* ", " */" } }, -- CSS comment
-  --       },
-  --     }
-  --     --  siw"     - Окружить слово двойными кавычками
-  --     --  siw'     - Окружить слово одинарными кавычками
-  --     --  siw(     - Окружить слово круглыми скобками
-  --     --  siw[     - Окружить слово квадратными скобками
-  --     --  siw{     - Окружить слово фигурными скобками
-  --     --  siwt     - Окружить слово HTML тегом (спросит какой)
-  --     --  siwb     - Окружить слово **Markdown жирным**
-  --     --  siwi     - Окружить слово *Markdown курсивом*
-  --     --
-  --     --  ss"      - Окружить всю строку двойными кавычками
-  --     --  ssb      - Окружить всю строку **жирным**
-  --     --
-  --     --  Visual mode: выделите текст и нажмите S" (или Sb, Si и т.д.)
-  --     --
-  --     --  ds"      - Удалить двойные кавычки вокруг слова
-  --     --  ds(      - Удалить круглые скобки
-  --     --  dsb      - Удалить **жирное** Markdown оформление
-  --     --
-  --     --  cs"'     - Изменить двойные кавычки на одинарные
-  --     --  cs(b     - Изменить круглые скобки на **жирный** Markdown
-  --     --  csw"     - Изменить окружение слова на двойные кавычки
-  --     vim.keymap.set("n", "s", "<Plug>(surround)")
-  --     vim.keymap.set("n", "ss", "<Plug>(surround_line)")
-  --     vim.keymap.set("n", "ds", "<Plug>(delete_surround)")
-  --     vim.keymap.set("n", "cs", "<Plug>(change_surround)")
-  --     vim.keymap.set("v", "S", "<Plug>(visual_surround)")
-  --   end,
-  -- },
-  --
+  {
+    "kylechui/nvim-surround",
+    version = "*",
+    event = "VeryLazy",
+    config = function()
+      local surround = require "nvim-surround"
+
+      surround.setup {
+        surrounds = {
+          ["b"] = { add = { "**", "**" } }, -- Markdown bold
+          ["i"] = { add = { "*", "*" } }, -- Markdown italic
+          ["c"] = { add = { "/* ", " */" } }, -- CSS comment
+        },
+      }
+      --  siw"     - Окружить слово двойными кавычками
+      --  siw'     - Окружить слово одинарными кавычками
+      --  siw(     - Окружить слово круглыми скобками
+      --  siw[     - Окружить слово квадратными скобками
+      --  siw{     - Окружить слово фигурными скобками
+      --  siwt     - Окружить слово HTML тегом (спросит какой)
+      --  siwb     - Окружить слово **Markdown жирным**
+      --  siwi     - Окружить слово *Markdown курсивом*
+      --
+      --  ss"      - Окружить всю строку двойными кавычками
+      --  ssb      - Окружить всю строку **жирным**
+      --
+      --  Visual mode: выделите текст и нажмите S" (или Sb, Si и т.д.)
+      --
+      --  ds"      - Удалить двойные кавычки вокруг слова
+      --  ds(      - Удалить круглые скобки
+      --  dsb      - Удалить **жирное** Markdown оформление
+      --
+      --  cs"'     - Изменить двойные кавычки на одинарные
+      --  cs(b     - Изменить круглые скобки на **жирный** Markdown
+      --  csw"     - Изменить окружение слова на двойные кавычки
+      vim.keymap.set("n", "s", "<Plug>(surround)")
+      vim.keymap.set("n", "ss", "<Plug>(surround_line)")
+      vim.keymap.set("n", "ds", "<Plug>(delete_surround)")
+      vim.keymap.set("n", "cs", "<Plug>(change_surround)")
+      vim.keymap.set("v", "S", "<Plug>(visual_surround)")
+    end,
+  },
+
   -- Default NvChad notifications
 
   {
@@ -356,7 +356,6 @@ return {
 
       require("diffview").setup {
         enhanced_diff_hl = true,
-        -- merge_tool scope — эти бинды активны в merge view (правильное место)
         key_bindings = {
           merge_tool = {
             -- hunk-level (один конфликт)
@@ -405,6 +404,58 @@ return {
         ["Visual All"] = "<C-;>",
       }
       vim.g.VM_mouse_mappings = 1
+    end,
+  },
+
+  -- Smooth scroll
+  {
+    "karb94/neoscroll.nvim",
+    event = "VeryLazy",
+    config = function()
+      local neoscroll = require "neoscroll"
+      neoscroll.setup {
+        hide_cursor = true,
+        stop_eof = true,
+        respect_scrolloff = false,
+        cursor_scrolls_alone = true,
+        duration_multiplier = 1.0,
+        easing = "sine",
+        performance_mode = false,
+      }
+
+      local keymap = {
+        ["<C-u>"] = function()
+          neoscroll.ctrl_u { duration = 150 }
+        end,
+        ["<C-d>"] = function()
+          neoscroll.ctrl_d { duration = 150 }
+        end,
+        ["<C-b>"] = function()
+          neoscroll.ctrl_b { duration = 150 }
+        end,
+        ["<C-f>"] = function()
+          neoscroll.ctrl_f { duration = 150 }
+        end,
+        ["<C-y>"] = function()
+          neoscroll.scroll(-0.1, { move_cursor = false, duration = 100 })
+        end,
+        ["<C-e>"] = function()
+          neoscroll.scroll(0.1, { move_cursor = false, duration = 100 })
+        end,
+        ["zt"] = function()
+          neoscroll.zt { half_win_duration = 150 }
+        end,
+        ["zz"] = function()
+          neoscroll.zz { half_win_duration = 150 }
+        end,
+        ["zb"] = function()
+          neoscroll.zb { half_win_duration = 150 }
+        end,
+      }
+
+      for key, func in pairs(keymap) do
+        vim.keymap.set({ "n", "v", "x" }, key, func, { desc = "neoscroll " .. key })
+      end
     end,
   },
 }
