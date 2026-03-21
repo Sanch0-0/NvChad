@@ -69,8 +69,10 @@ map("n", "<leader>V", ":VenvSelect<CR>", { desc = "Select virtual env" })
 -- Переходы по табам
 map("n", "<A-t>", ":tabnew<CR>", { desc = "Open new tab" })
 map("n", "<A-T>", ":tabclose<CR>", { desc = "Close current tab" })
-map("n", "<A-Right>", ":tabnext<CR>", { desc = "Next tab" })
-map("n", "<A-Left>", ":tabprevious<CR>", { desc = "Previous tab" })
+for i = 1, 9 do
+  map("n", "<A-" .. i .. ">", i .. "gt", { desc = "Go to tab " .. i })
+end
+map("n", "<A-0>", "10gt", { desc = "Go to tab 10" })
 
 -- Быстрое сохранение
 map({ "n", "i", "v" }, "<C-s>", "<cmd>w<CR>", { desc = "Save file" })
