@@ -31,41 +31,41 @@ return {
 
   -- Telescope configs
   {
-  "nvim-telescope/telescope.nvim",
-  opts = function(_, opts)
-    local actions = require "telescope.actions"
-    opts.defaults = vim.tbl_deep_extend("force", opts.defaults or {}, {
-      layout_config = {
-        horizontal = {
-          preview_width = 0.5,
+    "nvim-telescope/telescope.nvim",
+    opts = function(_, opts)
+      local actions = require "telescope.actions"
+      opts.defaults = vim.tbl_deep_extend("force", opts.defaults or {}, {
+        layout_config = {
+          horizontal = {
+            preview_width = 0.5,
+          },
+          preview_cutoff = 1,
         },
-        preview_cutoff = 1,
-      },
-      mappings = {
-        i = {
-          ["<C-j>"] = actions.move_selection_next,
-          ["<C-k>"] = actions.move_selection_previous,
-          ["<C-h>"] = actions.move_selection_previous,
-          ["<C-l>"] = actions.move_selection_next,
+        mappings = {
+          i = {
+            ["<C-j>"] = actions.move_selection_next,
+            ["<C-k>"] = actions.move_selection_previous,
+            ["<C-h>"] = actions.move_selection_previous,
+            ["<C-l>"] = actions.move_selection_next,
+          },
+          n = {
+            ["<C-j>"] = actions.move_selection_next,
+            ["<C-k>"] = actions.move_selection_previous,
+            ["<C-h>"] = actions.move_selection_previous,
+            ["<C-l>"] = actions.move_selection_next,
+          },
         },
-        n = {
-          ["<C-j>"] = actions.move_selection_next,
-          ["<C-k>"] = actions.move_selection_previous,
-          ["<C-h>"] = actions.move_selection_previous,
-          ["<C-l>"] = actions.move_selection_next,
-        },
-      },
-    })
+      })
 
-    -- Автокоманда для нумерации строк в preview – она безопасна
-    vim.api.nvim_create_autocmd("User", {
-      pattern = "TelescopePreviewerLoaded",
-      callback = function()
-        vim.opt_local.number = true
-        vim.opt_local.relativenumber = false
-      end,
-    })
-  end,
+      -- Автокоманда для нумерации строк в preview – она безопасна
+      vim.api.nvim_create_autocmd("User", {
+        pattern = "TelescopePreviewerLoaded",
+        callback = function()
+          vim.opt_local.number = true
+          vim.opt_local.relativenumber = false
+        end,
+      })
+    end,
   },
 
   -- Signatures
@@ -119,7 +119,7 @@ return {
     "stevearc/conform.nvim",
     lazy = false,
     config = function()
-      require("conform").setup(require("configs.conform"))
+      require("conform").setup(require "configs.conform")
     end,
   },
 
@@ -290,51 +290,50 @@ return {
     end,
   },
 
-  -- Surround
-  {
-    "kylechui/nvim-surround",
-    version = "*",
-    event = "VeryLazy",
-    config = function()
-      require("nvim-surround").setup {
-        keymaps = {
-          normal = "s",
-          normal_cur = "ss",
-          visual = "S",
-          delete = "ds",
-          change = "cs",
-        },
-        --  siw"     - Окружить слово двойными кавычками
-        --  siw'     - Окружить слово одинарными кавычками
-        --  siw(     - Окружить слово круглыми скобками
-        --  siw[     - Окружить слово квадратными скобками
-        --  siw{     - Окружить слово фигурными скобками
-        --  siwt     - Окружить слово HTML тегом (спросит какой)
-        --  siwb     - Окружить слово **Markdown жирным**
-        --  siwi     - Окружить слово *Markdown курсивом*
-        --
-        --  ss"      - Окружить всю строку двойными кавычками
-        --  ssb      - Окружить всю строку **жирным**
-        --
-        --  Visual mode: выделите текст и нажмите S" (или Sb, Si и т.д.)
-        --
-        --  ds"      - Удалить двойные кавычки вокруг слова
-        --  ds(      - Удалить круглые скобки
-        --  dsb      - Удалить **жирное** Markdown оформление
-        --
-        --  cs"'     - Изменить двойные кавычки на одинарные
-        --  cs(b     - Изменить круглые скобки на **жирный** Markdown
-        --  csw"     - Изменить окружение слова на двойные кавычки
-        surrounds = {
-          -- Дополнительные окружения
-          ["b"] = { add = { "**", "**" } }, -- Markdown bold
-          ["i"] = { add = { "*", "*" } }, -- Markdown italic
-          ["c"] = { add = { "/* ", " */" } }, -- CSS comment
-        },
-      }
-    end,
-  },
-
+  -- -- Surround
+  -- {
+  --   "kylechui/nvim-surround",
+  --   version = "*",
+  --   event = "VeryLazy",
+  --   config = function()
+  --     local surround = require "nvim-surround"
+  --
+  --     surround.setup {
+  --       surrounds = {
+  --         ["b"] = { add = { "**", "**" } }, -- Markdown bold
+  --         ["i"] = { add = { "*", "*" } }, -- Markdown italic
+  --         ["c"] = { add = { "/* ", " */" } }, -- CSS comment
+  --       },
+  --     }
+  --     --  siw"     - Окружить слово двойными кавычками
+  --     --  siw'     - Окружить слово одинарными кавычками
+  --     --  siw(     - Окружить слово круглыми скобками
+  --     --  siw[     - Окружить слово квадратными скобками
+  --     --  siw{     - Окружить слово фигурными скобками
+  --     --  siwt     - Окружить слово HTML тегом (спросит какой)
+  --     --  siwb     - Окружить слово **Markdown жирным**
+  --     --  siwi     - Окружить слово *Markdown курсивом*
+  --     --
+  --     --  ss"      - Окружить всю строку двойными кавычками
+  --     --  ssb      - Окружить всю строку **жирным**
+  --     --
+  --     --  Visual mode: выделите текст и нажмите S" (или Sb, Si и т.д.)
+  --     --
+  --     --  ds"      - Удалить двойные кавычки вокруг слова
+  --     --  ds(      - Удалить круглые скобки
+  --     --  dsb      - Удалить **жирное** Markdown оформление
+  --     --
+  --     --  cs"'     - Изменить двойные кавычки на одинарные
+  --     --  cs(b     - Изменить круглые скобки на **жирный** Markdown
+  --     --  csw"     - Изменить окружение слова на двойные кавычки
+  --     vim.keymap.set("n", "s", "<Plug>(surround)")
+  --     vim.keymap.set("n", "ss", "<Plug>(surround_line)")
+  --     vim.keymap.set("n", "ds", "<Plug>(delete_surround)")
+  --     vim.keymap.set("n", "cs", "<Plug>(change_surround)")
+  --     vim.keymap.set("v", "S", "<Plug>(visual_surround)")
+  --   end,
+  -- },
+  --
   -- Default NvChad notifications
 
   {
@@ -388,6 +387,24 @@ return {
           },
         },
       }
+    end,
+  },
+
+  -- Multi line editint
+  {
+    "mg979/vim-visual-multi",
+    branch = "master",
+    event = "VeryLazy",
+    init = function()
+      vim.g.VM_maps = {
+        ["Find Under"] = "<C-;>",
+        ["Find Next"] = "<C-;>",
+        ["Select All"] = "<C-a>",
+        ["Add Cursor Down"] = "<C-j>",
+        ["Add Cursor Up"] = "<C-k>",
+        ["Visual All"] = "<C-;>",
+      }
+      vim.g.VM_mouse_mappings = 1
     end,
   },
 }

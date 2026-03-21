@@ -103,7 +103,11 @@ end, { desc = "Open TODO quickfix" })
 
 map("n", "<leader>qc", "<cmd>cclose<CR>", { desc = "Close quickfix" })
 
--- Ренейм через LSP
+-- Ренейм
 map("n", "<leader>rr", function()
-  vim.lsp.buf.rename()
-end, { desc = "LSP Rename" })
+  local word = vim.fn.expand "<cword>" -- слово под курсором
+  local replacement = vim.fn.input("Replace '" .. word .. "' with: ")
+  if replacement ~= "" then
+    vim.cmd("%s/" .. word .. "/" .. replacement .. "/g")
+  end
+end, { desc = "Replace word in current buffer" })
