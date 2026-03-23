@@ -68,7 +68,7 @@ map("n", "<leader>V", ":VenvSelect<CR>", { desc = "Select virtual env" })
 
 -- Переходы по табам
 map("n", "<A-t>", ":tabnew<CR>", { desc = "Open new tab" })
-map("n", "<A-T>", ":tabclose<CR>", { desc = "Close current tab" })
+map("n", "<A-q>", ":tabclose<CR>", { desc = "Close current tab" })
 for i = 1, 9 do
   map("n", "<A-" .. i .. ">", i .. "gt", { desc = "Go to tab " .. i })
 end
