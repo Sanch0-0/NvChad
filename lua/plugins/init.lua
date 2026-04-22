@@ -290,6 +290,16 @@ return {
     end,
   },
 
+  -- Cut without copying
+  {
+    "gbprod/cutlass.nvim",
+    config = function()
+      require("cutlass").setup {
+        cut_key = "x",
+      }
+    end,
+  },
+
   -- -- Surround
   {
     "kylechui/nvim-surround",

@@ -58,11 +58,6 @@ map("i", "<A-k>", "<Esc>:m .-2<CR>==gi", { desc = "Move line up" })
 -- Найти все места, где используется данный символ
 map("n", "<leader>gr", ":lua vim.lsp.buf.references()<CR>")
 
--- Удалять на d без копирования
-map({ "n", "v" }, "d", '"_d', { desc = "Delete without yanking" })
-map({ "n", "v" }, "D", '"_D', { desc = "Delete to end of line without yanking" })
-map({ "n", "v" }, "x", '"_x', { desc = "Delete char without yanking" })
-
 -- Выбор venv окружения
 map("n", "<leader>V", ":VenvSelect<CR>", { desc = "Select virtual env" })
 
