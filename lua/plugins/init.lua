@@ -293,6 +293,7 @@ return {
   -- Cut without copying
   {
     "gbprod/cutlass.nvim",
+    lazy = false,
     config = function()
       require("cutlass").setup {
         cut_key = "x",
